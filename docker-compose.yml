@@ -1,0 +1,30 @@
+version: '3'
+services:
+  backend:
+    build: .
+    ports:
+      - 5000:5000
+    environment:
+      MYSQL_HOST: "mysqldb"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "admin"
+      MYSQL_DB: "mydb"
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: "mydb"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "admin"
+      MYSQL_ROOT_PASSWORD: "admin"
+
+    volumes:
+      - ./message.sql:/docker-entrypoint-initdb.d/messgae.sql
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
+
