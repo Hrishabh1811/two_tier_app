@@ -1,17 +1,35 @@
 pipeline {
-    agent {
-        label 'test'
+    agent none
+    environment {
+        // Default value for NODE_LABEL
+        NODE_LABEL = ''
     }
+    stages {
+        stage('Determine Node') {
+            steps {
+                script {
+                    // Set the NODE_LABEL based on the branch name
+                    if (env.BRANCH_NAME == 'sudo-main') {
+                        env.NODE_LABEL = 'test'
+                    } else if (env.BRANCH_NAME == 'test') {
+                        env.NODE_LABEL = 'test'
+                    } else {
+                        error "No node label defined for branch: ${env.BRANCH_NAME}"
+                    }
+                    echo "Node label set to: ${env.NODE_LABEL}"
+                }
+            }
+        }
     
     stages{
         stage("Code"){
             steps{
-                checkout scmGit(branches: [[name: 'test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-Jenkins_key', url: 'https://github.com/Hrishabh1811/two_tier_app.git']]) 
+                checkout scmGit(branches: [[name: 'env.BRANCH_NAME']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-Jenkins_key', url: 'https://github.com/Hrishabh1811/two_tier_app.git']]) 
             }
         }
         stage("Build & Test"){
             steps{
-                echo "Hello form branch sudo-main"
+                echo "Hello form branch env.BRANCH_NAME"
                 
             }
         }
