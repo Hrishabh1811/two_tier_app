@@ -9,7 +9,7 @@ pipeline {
                     if (env.BRANCH_NAME == 'main') {
                         env.NODE_LABEL = 'test'
                     } else if (env.BRANCH_NAME == 'test') {
-                        env.NODE_LABEL = 'test1'
+                        env.NODE_LABEL = 'test'
                     } else {
                         error "No node label defined for branch: ${env.BRANCH_NAME}"
                     }
