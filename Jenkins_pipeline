@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Set the NODE_LABEL based on the branch name
-                    if (env.BRANCH_NAME == 'sudo-main') {
+                    if (env.BRANCH_NAME == 'main') {
                         env.NODE_LABEL = 'test'
                     } else if (env.BRANCH_NAME == 'test') {
                         env.NODE_LABEL = 'test1'
