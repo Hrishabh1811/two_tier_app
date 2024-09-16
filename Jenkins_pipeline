@@ -36,9 +36,8 @@ pipeline {
                     // Conditional steps based on the node label
                     if (env.NODE_LABEL == 'test') {
                         echo "Hello from branch ${env.BRANCH_NAME}"
-                    else if (env.NODE_LABEL == 'test2') {
+                    } else if (env.NODE_LABEL == 'test2') {
                         echo "Hello from branch ${env.BRANCH_NAME}"
-                    }
                     } else if (env.NODE_LABEL == 'test') {
                         echo "Hello from branch ${env.BRANCH_NAME}"
                     }
