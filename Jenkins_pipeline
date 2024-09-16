@@ -12,7 +12,7 @@ pipeline {
                     if (env.BRANCH_NAME == 'sudo-main') {
                         env.NODE_LABEL = 'test'
                     } else if (env.BRANCH_NAME == 'test') {
-                        env.NODE_LABEL = 'test'
+                        env.NODE_LABEL = 'test1'
                     } else {
                         error "No node label defined for branch: ${env.BRANCH_NAME}"
                     }
@@ -24,6 +24,7 @@ pipeline {
   
         stage("Code"){
             steps{
+
                 checkout scmGit(branches: [[name: 'env.BRANCH_NAME']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-Jenkins_key', url: 'https://github.com/Hrishabh1811/two_tier_app.git']]) 
             }
         }
