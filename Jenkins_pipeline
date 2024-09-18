@@ -47,6 +47,9 @@ pipeline {
 }
     post { 
 	always { 
+	    agent {
+                label "${env.NODE_LABEL}"
+            }
 		script { 
 				def jobName = env.JOB_NAME 
 				def buildNumber = env.BUILD_NUMBER 
