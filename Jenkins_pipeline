@@ -44,29 +44,7 @@ pipeline {
                 }
             }
         }
-    }
-pipeline {
-    agent {
-        label 'BHT-FE'
-    }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-Jenkins_key', url: 'git@github.com:anupsawant/bhtfe.git']])
-            }
-        }
-        stage("CleanUp"){
-            steps{
-                sh "sudo docker system prune -f --all"
-            }
-        }
-        stage("Build & Deploy"){
-            steps{
-                sh "sudo docker-compose up --build -d bh-prod"
-            }
-        }
-    }
     post { 
 	always { 
 		script { 
@@ -101,9 +79,10 @@ pipeline {
 	    }
     }
 }
+}
 def getGitChanges() {
     def gitLog = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h by %an on %ad: %s" --date=iso').trim()
     def changes = "<li>${gitLog}</li>"
     return changes
 }
-}
+
