@@ -79,7 +79,7 @@ pipeline {
 	    }
     }
 }
-}
+
 def getGitChanges() {
     def gitLog = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h by %an on %ad: %s" --date=iso').trim()
     def changes = "<li>${gitLog}</li>"
