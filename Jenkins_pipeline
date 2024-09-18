@@ -47,9 +47,7 @@ pipeline {
 }
     post { 
 	always { 
-	    agent {
-                label "${env.NODE_LABEL}"
-            }
+	    node(env.NODE_LABEL) {
 		script { 
 				def jobName = env.JOB_NAME 
 				def buildNumber = env.BUILD_NUMBER 
@@ -82,7 +80,7 @@ pipeline {
 	    }
     }
 }
-
+}
 def getGitChanges() {
     def gitLog = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h by %an on %ad: %s" --date=iso').trim()
     def changes = "<li>${gitLog}</li>"
